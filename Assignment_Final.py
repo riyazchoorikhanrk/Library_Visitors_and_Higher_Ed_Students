@@ -86,43 +86,34 @@ plt.title(xtitle)
 plt.show()
 
 
-# Read the data using pandas
+
+
+# Create a DataFrame with the provided data
 data = {
-    'Category': ['Female Full-time', 'Female Part-time', 'Female Total',
-                 'Male Full-time', 'Male Part-time', 'Male Total',
-                 'Total Full-time', 'Total Part-time', 'Grand Total'],
-    'Postgraduate': [283, 982, 1265, 158, 690, 848, 441, 1672, 2113],
-    'First Degree': [5656, 1577, 7233, 3916, 843, 4759, 9572, 2420, 11992],
-    'Other Undergraduate': [20545, 56371, 76916, 21508, 55968, 77476, 42053, 112339, 154392],
-    'Total': [66043, 93298, 159341, 75570, 91956, 167526, 141613, 185254, 326867],
+    'Institution': ['FE Institutions', 'HE Institutions'] * 4,
+    'Gender': ['Female', 'Female', 'Male', 'Male'] * 2,
+    'Coursetype': ['Full-time', 'Part-time'] * 4,
+    'Postgraduate': [283, 982, 158, 690, 66043, 93298, 75570, 91956],
+    'First Degree': [5656, 1577, 3916, 843, 464349, 49095, 435345, 35608],
+    'Other Undergraduate': [20545, 56371, 21508, 55968, 72366, 161856, 47933, 108795],
 }
 
 df = pd.DataFrame(data)
 
+# Set up the plot
+fig, ax = plt.subplots(figsize=(12, 8))
 
-def plot_bar(dataframe, category, title, x_label, y_label):
-    """
-    Plots a bar chart for a specific category.
+# Plot the data with 'hue' parameter
+df.set_index(['Institution', 'Gender']).plot(kind='bar', ax=ax, rot=45, colormap='viridis', edgecolor='black', linewidth=0.7)
 
-    Parameters:
-    - dataframe: Pandas DataFrame containing the data.
-    - category: String, the category to plot (e.g., 'Female Full-time').
-    - title: String, the title of the plot.
-    - x_label: String, the label for the x-axis.
-    - y_label: String, the label for the y-axis.
-    """
-    subset = dataframe[dataframe['Category'] == category]
-    subset = subset.set_index('Category').transpose()
-    subset.plot(kind='bar', legend=False)
-    plt.title(title)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.show()
+# Customize the plot
+plt.title('Number of Students in FE and HE Institutions by Gender and Course type')
+plt.xlabel('Institution and Gender')
+plt.ylabel('Number of Students')
+plt.legend(title='Degree Level')
 
+# Adjust layout for better visualization
+plt.tight_layout()
 
-plot_bar(df, 'Female Full-time', 'Female Full-time Students',
-         'Degree Level', 'Number of Students')
-plot_bar(df, 'Male Part-time', 'Male Part-time Students',
-         'Degree Level', 'Number of Students')
-plot_bar(df, 'Total Full-time', 'Total Full-time Students',
-         'Degree Level', 'Number of Students')
+# Show the plot
+plt.show()
