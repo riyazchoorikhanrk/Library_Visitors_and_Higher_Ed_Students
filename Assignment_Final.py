@@ -48,6 +48,10 @@ plt.title(xtitle)
 
 # Show the plot
 plt.show()
+
+""" below code for the third graph - Scatter plot """
+
+
 df = pd.read_csv('library_users_by_age_cleaned.csv')
 
 
@@ -86,7 +90,7 @@ plt.title(xtitle)
 plt.show()
 
 
-
+""" below code for the third graph - bar plot """
 
 # Create a DataFrame with the provided data
 data = {
@@ -94,17 +98,17 @@ data = {
     'Gender': ['Female', 'Female', 'Male', 'Male'] * 2,
     'Coursetype': ['Full-time', 'Part-time'] * 4,
     'Postgraduate': [283, 982, 158, 690, 66043, 93298, 75570, 91956],
-    'First Degree': [5656, 1577, 3916, 843, 464349, 49095, 435345, 35608],
-    'Other Undergraduate': [20545, 56371, 21508, 55968, 72366, 161856, 47933, 108795],
-}
+    'First Degree': [5656, 1577, 3916, 843, 464349, 49095, 435345, 35608]}
+
 
 df = pd.DataFrame(data)
 
 # Set up the plot
-fig, ax = plt.subplots(figsize=(12, 8))
+fig, ax = plt.subplots(figsize=(14, 9))
 
 # Plot the data with 'hue' parameter
-df.set_index(['Institution', 'Gender']).plot(kind='bar', ax=ax, rot=45, colormap='viridis', edgecolor='black', linewidth=0.7)
+df.set_index(['Institution', 'Gender','Coursetype','Postgraduate']).plot(kind='bar', ax=ax, rot=45, colormap='viridis', edgecolor='black', linewidth=0.7)
+df.set_index(['Institution', 'Gender','Coursetype','First Degree']).plot(kind='bar', ax=ax, rot=45, edgecolor='black', linewidth=0.7)
 
 # Customize the plot
 plt.title('Number of Students in FE and HE Institutions by Gender and Course type')
@@ -117,3 +121,6 @@ plt.tight_layout()
 
 # Show the plot
 plt.show()
+
+
+
